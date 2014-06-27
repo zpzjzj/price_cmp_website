@@ -33,6 +33,10 @@
 
 	<ul class="pagination pagination-lg">
 		<?php
+			$keyword = join("+", 
+				array_map(function($str){
+					return urlencode($str);
+				}, $keyword));	//encode keyword string
 			$goto_page = function($page_index) use($keyword){
 				return "/index.php/search/scrape?keyword=$keyword&page_index=$page_index";
 			};

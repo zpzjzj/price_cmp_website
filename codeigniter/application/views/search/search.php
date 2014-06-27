@@ -19,7 +19,7 @@
 <body>
 	<center>
 		<h1> Price Compare </h1>
-		<form method="get" action="/index.php/search/scrape">
+		<form id="search" method="get" action="/index.php/search/scrape">
 			<div id="middle_div" class="input centered_div">
 				<input name="keyword" class="input-lg"/><br/>
 				<button type="submit" class="btn btn-lg btn-primary" 

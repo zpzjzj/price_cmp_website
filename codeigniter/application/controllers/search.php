@@ -12,7 +12,7 @@ class Search extends CI_Controller {
     }
 
 	public function index(){
-		$this->load->view('search/search.html');
+		$this->load->view('search/search');
 	}
 
 	/**
@@ -25,11 +25,13 @@ class Search extends CI_Controller {
 			'keyword' => $this->keyword,
 			'page_index' => $page_index, 
 			'page_num' => $this->page_num);
-		$this->load->view('search/list_result.html', $data);
+		$this->load->view('search/list_result', $data);
 	}
 
 	public function scrape(){
 		$keyword = $this->input->get('keyword');
+		$keyword = explode(' ', $keyword);
+		sort($keyword);
 		if($keyword != $this->keyword){//new keyword
 			$this->generate_result($keyword);
 			$this->keyword = $keyword;
@@ -44,14 +46,14 @@ class Search extends CI_Controller {
 	}
 
 	/**
-	 *	@param keyword
+	 *	@param array of keyword
 	 *	set $res = array(taotao_list, amazon_list, ...)
 	 */
 	private function generate_result($keyword){
 		$websites = array("taobao", "amazon");
 		$files = array_map(
 			function($site) use ($keyword){
-				return MODELS_PATH.$site."_".$keyword.".json";
+				return MODELS_PATH.$site."_".join("_",$keyword).".json";
 			}, array("taobao", "amazon"));
 		//eg. taobao_keyboard.json
 		
